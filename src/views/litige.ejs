@@ -77,14 +77,7 @@ Pdf
       <div class="error"><%= errors.message.msg %></div>
     <% } %>
   </div>
-    <!-- Email -->
-  <div class="form-field <%= errors.email ? 'form-field-invalid' : '' %>">
-    <label for="email">Email</label>
-    <input class="input" id="email" name="email" type="email" value="<%= data.email %>" />
-    <% if (errors.email) { %>
-      <div class="error"><%= errors.email.msg %></div>
-    <% } %>
-  </div>
+
     <!-- Pdf-->
   <div class="form-field">
     <label for="pdf">Pdf</label>
