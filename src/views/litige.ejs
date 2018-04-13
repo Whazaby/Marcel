@@ -1,0 +1,96 @@
+<!-- views/litige.ejs -->
+<div class="form-header">
+  <% if (Object.keys(errors).length === 0) { %>
+    <h2>Send us a message</h2>
+  <% } else { %>
+    <h2 class="errors-heading">Oops, please correct the following:</h2>
+    <ul class="errors-list">
+      <% Object.values(errors).forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>
+<!--Noms 
+Prénoms
+Objet du litige
+Localité
+Téléphone
+E mail
+Pdf
+-->
+<form method="post" action="/litige?_csrf=<%= csrfToken %>" novalidate enctype="multipart/form-data">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+     <!-- Nom -->
+  <div class="form-field <%= errors.nom ? 'form-field-invalid' : '' %>">
+    <label for="nom">Nom</label>
+    <input class="input" id="nom" name="nom" type="text" value="<%= data.nom %>" />
+    <% if (errors.nom) { %>
+      <div class="error"><%= errors.nom.msg %></div>
+    <% } %>
+  </div>
+     <!-- Prénom -->
+  <div class="form-field <%= errors.prenom ? 'form-field-invalid' : '' %>">
+    <label for="prenom">Prénom</label>
+    <input class="input" id="prenom" name="prenom" type="text" value="<%= data.prenom %>" />
+    <% if (errors.prenom) { %>
+      <div class="error"><%= errors.prenom.msg %></div>
+    <% } %>
+  </div>
+     <!-- Objet du litige -->
+  <div class="form-field <%= errors.objet ? 'form-field-invalid' : '' %>">
+    <label for="objet">Objet du litige</label>
+    <input class="input" id="objet" name="objet" type="text" value="<%= data.objet %>" />
+    <% if (errors.objet) { %>
+      <div class="error"><%= errors.objet.msg %></div>
+    <% } %>
+  </div>
+       <!-- Localité -->
+  <div class="form-field <%= errors.localite ? 'form-field-invalid' : '' %>">
+    <label for="objet">Localité</label>
+    <input class="input" id="localite" name="localite" type="text" value="<%= data.localite %>" />
+    <% if (errors.localite) { %>
+      <div class="error"><%= errors.localite.msg %></div>
+    <% } %>
+  </div>
+       <!-- Téléphone -->
+  <div class="form-field <%= errors.telephone ? 'form-field-invalid' : '' %>">
+    <label for="telephone">Téléphone</label>
+    <input class="input" id="telephone" name="telephone" type="text" value="<%= data.telephone %>" />
+    <% if (errors.telephone) { %>
+      <div class="error"><%= errors.telephone.msg %></div>
+    <% } %>
+  </div>
+     <!-- Email -->
+  <div class="form-field <%= errors.email ? 'form-field-invalid' : '' %>">
+    <label for="email">Email</label>
+    <input class="input" id="email" name="email" type="email" value="<%= data.email %>" />
+    <% if (errors.email) { %>
+      <div class="error"><%= errors.email.msg %></div>
+    <% } %>
+  </div>
+    <!-- Message -->
+  <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
+    <label for="message">Message</label>
+    <textarea class="input" id="message" name="message" rows="4" autofocus><%= data.message %></textarea>
+    <% if (errors.message) { %>
+      <div class="error"><%= errors.message.msg %></div>
+    <% } %>
+  </div>
+    <!-- Email -->
+  <div class="form-field <%= errors.email ? 'form-field-invalid' : '' %>">
+    <label for="email">Email</label>
+    <input class="input" id="email" name="email" type="email" value="<%= data.email %>" />
+    <% if (errors.email) { %>
+      <div class="error"><%= errors.email.msg %></div>
+    <% } %>
+  </div>
+    <!-- Pdf-->
+  <div class="form-field">
+    <label for="pdf">Pdf</label>
+    <input class="input" id="pdf" name="pdf" type="file" />
+  </div>
+  <div class="form-actions">
+    <button class="btn" type="submit">Send</button>
+  </div>
+</form>
