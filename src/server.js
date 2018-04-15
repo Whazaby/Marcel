@@ -13,6 +13,9 @@ const csrf = require('csurf')
 const routes = require('./routes')
 const app = express()
 
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
+
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
@@ -49,3 +52,15 @@ app.use((err, req, res, next) => {
 app.listen(3000, () => {
   console.log(`App running at http://localhost:3000`)
 })
+
+var url = "mongodb://localhost:27017/marcel";
+
+// Use connect method to connect to the server
+MongoClient.connect(url, function(err, db) {
+  if(err){
+    console.log("Erreur: ",err);
+  }else{
+    console.log("Connected successfully to server");
+  }
+  db.close();
+});

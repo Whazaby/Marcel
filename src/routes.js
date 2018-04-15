@@ -4,14 +4,18 @@ const {check, validationResult} = require('express-validator/check')
 var path = require('path')
 const {matchedData} = require('express-validator/filter')
 const multer = require('multer')
+
+const urlUpload = './uploads';
 const upload = multer({storage: multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, 'C:/Temp/my-uploads')
+            cb(null, urlUpload)
         },
         filename: function (req, file, cb) {
             cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
         }
     })})
+const LitigeService = require("./services/litige-service.js");
+
 //https://github.com/expressjs/multer
 //https://github.com/ctavan/express-validator#schema-validation
 router.get('/', (req, res) => {
@@ -104,13 +108,25 @@ router.post('/litige', upload.single('pdf'), [
     const data = matchedData(req)
     console.log('Sanitized:', data)
 
+    var pathFile = undefined;
+
     if (req.file) {
-        console.log('Uploaded: ', req.file)
-        // Homework: Upload file to S3
-        // upload(req,res, function (err) {
-        //     console.log(err)
-        // })
+        pathFile = urlUpload+'/'+req.file.filename;
+        console.log('Upload: ',pathFile);
     }
+    const litigeService = new LitigeService();
+    const litige = {
+        message : data.message,
+        email: data.email,
+        nom: data.nom,
+        prenom: data.prenom,
+        objet: data.objet,
+        localite: data.localite,
+        telephone: data.telephone,
+        file: pathFile
+    };
+
+    litigeService.insert(litige);
 
     req.flash('success', 'Thanks for the message! I‘ll be in touch :)')
     res.redirect('/')
