@@ -1,0 +1,22 @@
+
+
+<table border="1" cellpadding="7" cellspacing="7">
+  <tr>
+    <th>Nom</th>
+    <th>Prénom</th>
+    <th>Objet</th>
+  </tr>
+   <% if(data.length){ 
+    for(var i = 0;i < data.length;i++) { %>
+  <tr>
+    <td><%=data[i].nom%></td>
+    <td><%=data[i].prenom%></td>
+    <td><%=data[i].objet%></td>
+  </tr>
+  <% }
+  }else{ %>
+  <tr>
+    <td colspan="3">No user</td>
+  </tr>
+<% } %> 
+</table>

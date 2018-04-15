@@ -62,6 +62,18 @@ router.post('/contact', upload.single('photo'), [
     res.redirect('/')
 })
 
+router.get('/litiges', (req, res) => {
+    const litigeService = new LitigeService();
+    const litiges = litigeService.find(function(litiges){
+        console.log("Litiges: ",litiges )
+        res.render('litiges', {
+            data: litiges,
+            errors: {},
+            csrfToken: req.csrfToken()
+        })
+    });
+})
+
 router.get('/litige', (req, res) => {
     res.render('litige', {
         data: {},

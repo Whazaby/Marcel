@@ -11,14 +11,7 @@
     </ul>
   <% } %>
 </div>
-<!--Noms 
-Prénoms
-Objet du litige
-Localité
-Téléphone
-E mail
-Pdf
--->
+
 <form method="post" action="/litige?_csrf=<%= csrfToken %>" novalidate enctype="multipart/form-data">
   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
      <!-- Nom -->
