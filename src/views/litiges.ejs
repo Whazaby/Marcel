@@ -1,5 +1,32 @@
 
+<!-- views/litiges.ejs -->
+<div class="form-header">
+  <% if (Object.keys(errors).length === 0) { %>
+    <h2>Send us a recherche</h2>
+  <% } else { %>
+    <h2 class="errors-heading">Oops, please correct the following:</h2>
+    <ul class="errors-list">
+      <% Object.values(errors).forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>
 
+<form method="post" action="/litiges?_csrf=<%= csrfToken %>" novalidate enctype="multipart/form-data">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div class="form-field <%= errors.recherche ? 'form-field-invalid' : '' %>">
+    <label for="recherche">recherche</label>
+    <input class="input" type="text" id="recherche" name="recherche" rows="4" autofocus><%= data.recherche %></input>
+    <% if (errors.recherche) { %>
+      <div class="error"><%= errors.recherche.msg %></div>
+    <% } %>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn" type="submit">Send</button>
+  </div>
+</form>
 <table border="1" cellpadding="7" cellspacing="7">
   <tr>
     <th>Nom</th>

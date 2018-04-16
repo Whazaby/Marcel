@@ -21,11 +21,14 @@ module.exports = exports = function(config) {
     });
   }
 
-  this.find = function(callback){
+  this.find = function(query,callback){
+    console.log("Query: ",query);
+
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("marcel");
-      dbo.collection("litiges").find().toArray(function(err, result){
+      console.log("Query: ",query);
+      dbo.collection("litiges").find(query).toArray(function(err, result){
         console.log("Find: ", result);
       callback(result);
       }); 

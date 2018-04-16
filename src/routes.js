@@ -64,14 +64,50 @@ router.post('/contact', upload.single('photo'), [
 
 router.get('/litiges', (req, res) => {
     const litigeService = new LitigeService();
-    const litiges = litigeService.find(function(litiges){
-        console.log("Litiges: ",litiges )
+
+    const litiges = litigeService.find({},function(litiges){
         res.render('litiges', {
             data: litiges,
             errors: {},
             csrfToken: req.csrfToken()
         })
     });
+})
+
+router.post('/litiges', [
+    check('recherche')
+        .isLength({min: 1})
+        .withMessage('Recherche is required')
+        .trim()
+], (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.render('litiges', {
+            data: req.body,
+            errors: errors.mapped(),
+            csrfToken: req.csrfToken()
+        })
+    }
+
+    const data = matchedData(req)
+    console.log('Sanitized:', data)
+
+    const litigeService = new LitigeService();
+    const query = {
+        
+        nom: data.recherche,
+       
+    };
+
+    litigeService.find(litige,function(data){
+        return res.render('litiges', {
+            data: data,
+            errors: {},
+            csrfToken: req.csrfToken()
+        })
+    });
+        
+
 })
 
 router.get('/litige', (req, res) => {
