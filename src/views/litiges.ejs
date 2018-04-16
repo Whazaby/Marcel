@@ -1,9 +1,6 @@
-
 <!-- views/litiges.ejs -->
 <div class="form-header">
-  <% if (Object.keys(errors).length === 0) { %>
-    <h2>Send us a recherche</h2>
-  <% } else { %>
+  <% if (Object.keys(errors).length !== 0) { %>
     <h2 class="errors-heading">Oops, please correct the following:</h2>
     <ul class="errors-list">
       <% Object.values(errors).forEach(error => { %>
@@ -15,20 +12,23 @@
 
 <form method="post" action="/litiges?_csrf=<%= csrfToken %>" novalidate enctype="multipart/form-data">
   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
   <div class="form-field <%= errors.recherche ? 'form-field-invalid' : '' %>">
     <label for="recherche">recherche</label>
-    <input class="input" type="text" id="recherche" name="recherche" rows="4" autofocus><%= data.recherche %></input>
+    <input class="input" id="recherche" name="recherche" type="recherche" value="<%= data.recherche %>" />
     <% if (errors.recherche) { %>
       <div class="error"><%= errors.recherche.msg %></div>
     <% } %>
   </div>
-
+  
   <div class="form-actions">
     <button class="btn" type="submit">Send</button>
   </div>
 </form>
+
 <table border="1" cellpadding="7" cellspacing="7">
   <tr>
+    <th>Id</th>
     <th>Nom</th>
     <th>Prénom</th>
     <th>Objet</th>
@@ -36,9 +36,10 @@
    <% if(data.length){ 
     for(var i = 0;i < data.length;i++) { %>
   <tr>
-    <td><%=data[i].nom%></td>
-    <td><%=data[i].prenom%></td>
-    <td><%=data[i].objet%></td>
+    <td><a href="/litige/<%=data[i]._id%>"><%=data[i]._id%></a></td>
+    <td><a href="/litige/<%=data[i]._id%>"><%=data[i].nom%></a></td>
+    <td><a href="/litige/<%=data[i]._id%>"><%=data[i].prenom%></a></td>
+    <td><a href="/litige/<%=data[i]._id%>"><%=data[i].objet%></a></td>
   </tr>
   <% }
   }else{ %>

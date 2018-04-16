@@ -15,6 +15,7 @@ const upload = multer({storage: multer.diskStorage({
         }
     })})
 const LitigeService = require("./services/litige-service.js");
+var ObjectId = require('mongodb').ObjectID;
 
 //https://github.com/expressjs/multer
 //https://github.com/ctavan/express-validator#schema-validation
@@ -63,21 +64,17 @@ router.post('/contact', upload.single('photo'), [
 })
 
 router.get('/litiges', (req, res) => {
-    const litigeService = new LitigeService();
-
-    const litiges = litigeService.find({},function(litiges){
-        res.render('litiges', {
-            data: litiges,
-            errors: {},
-            csrfToken: req.csrfToken()
-        })
-    });
+    res.render('litiges', {
+        data: {},
+        errors: {},
+        csrfToken: req.csrfToken()
+    })
 })
 
-router.post('/litiges', [
+router.post('/litiges', upload.array(), [
     check('recherche')
         .isLength({min: 1})
-        .withMessage('Recherche is required')
+        .withMessage('recherche is required')
         .trim()
 ], (req, res) => {
     const errors = validationResult(req)
@@ -94,12 +91,10 @@ router.post('/litiges', [
 
     const litigeService = new LitigeService();
     const query = {
-        
         nom: data.recherche,
-       
     };
 
-    litigeService.find(litige,function(data){
+    litigeService.find(query,function(data){
         return res.render('litiges', {
             data: data,
             errors: {},
@@ -107,7 +102,6 @@ router.post('/litiges', [
         })
     });
         
-
 })
 
 router.get('/litige', (req, res) => {
@@ -179,5 +173,24 @@ router.post('/litige', upload.single('pdf'), [
     req.flash('success', 'Thanks for the message! I‘ll be in touch :)')
     res.redirect('/')
 })
+
+router.get('/litige/:id', upload.array(), function(req, res) {
+
+    console.log(req.params.id);
+    const query = {
+        _id: ObjectId(req.params.id),
+    };
+    const litigeService = new LitigeService();
+
+    litigeService.find(query,function(data){
+        console.log(data);
+        return res.render('litige', {
+            data: data[0],
+            errors: {},
+            csrfToken: req.csrfToken()
+        })
+    });
+})
+
 
 module.exports = router
