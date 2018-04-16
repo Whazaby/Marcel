@@ -16,22 +16,23 @@
   <div class="form-field <%= errors.recherche ? 'form-field-invalid' : '' %>">
     <label for="recherche">recherche</label>
     <input class="input" id="recherche" name="recherche" type="recherche" value="<%= data.recherche %>" />
+    <button class="btn" type="submit">Ok</button>
+
     <% if (errors.recherche) { %>
       <div class="error"><%= errors.recherche.msg %></div>
     <% } %>
   </div>
   
   <div class="form-actions">
-    <button class="btn" type="submit">Send</button>
   </div>
 </form>
 
 <table border="1" cellpadding="7" cellspacing="7">
   <tr>
-    <th>Id</th>
-    <th>Nom</th>
-    <th>Prénom</th>
-    <th>Objet</th>
+    <th><label>Id</label></th>
+    <th><label>Nom</label></th>
+    <th><label>Prénom</label></th>
+    <th><label>Objet</label></th>
   </tr>
    <% if(data.length){ 
     for(var i = 0;i < data.length;i++) { %>
@@ -44,7 +45,7 @@
   <% }
   }else{ %>
   <tr>
-    <td colspan="3">No user</td>
+    <td colspan="4">No data</td>
   </tr>
 <% } %> 
 </table>
