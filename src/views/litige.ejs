@@ -1,4 +1,6 @@
 <!-- views/litige.ejs -->
+<a href="/litiges/">Liste des litiges</a>
+<a href="/litige/">Déclarer un litige</a>
 <div class="form-header">
   <% if (Object.keys(errors).length === 0) { %>
     <h2>Déclarer un litige</h2>
@@ -71,15 +73,26 @@
     <% } %>
   </div>
 
-    <!-- Pdf-->
-  <div class="form-field">
-    <label for="pdf">Pdf</label>
-    <input class="input" id="pdf" name="pdf" type="file" />
-  </div>
+  <!-- Fichier(s) -->
+    <% if (data.files) { %>
+      <div class="form-field">
+          <label for="fichiers">Fichier(s)</label>
+          <% if(data.files.length){ %>
+          <%    for(var i = 0;i < data.files.length;i++) { %>
+                  <a href="/uploads/<%=data.files[i]%>"><%=data.files[i]%></a>
+            <% } %>
+          <% } %>
+      </div>
+    <% } %>
+    <% if(!data._id) { %>
+    <div class="form-field">
+      <label for="fichiers">Fichier(s)</label>
+      <input class="input" id="fichiers" name="fichiers" type="file" multiple/>
+    </div>
+  <% } %>
   <% if (!data._id) { %>
   <div class="form-actions">
     <button class="btn" type="submit">Send</button>
   </div>
   <% } %>
 </form>
-<a href="/litiges/">litiges</a>

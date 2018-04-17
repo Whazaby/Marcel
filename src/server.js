@@ -53,6 +53,8 @@ app.listen(3000, () => {
   console.log(`App running at http://localhost:3000`)
 })
 
+app.use( express.static( "public" ) );
+
 var url = "mongodb://localhost:27017/marcel";
 
 // Use connect method to connect to the server

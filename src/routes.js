@@ -1,17 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const {check, validationResult} = require('express-validator/check')
-var path = require('path')
+
 const {matchedData} = require('express-validator/filter')
 const multer = require('multer')
 
-const urlUpload = './uploads';
+const urlUpload = 'src/public/uploads';
 const upload = multer({storage: multer.diskStorage({
         destination: function (req, file, cb) {
             cb(null, urlUpload)
         },
         filename: function (req, file, cb) {
-            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+            cb(null, Date.now() + '-'+ file.originalname)
         }
     })})
 const LitigeService = require("./services/litige-service.js");
@@ -64,11 +64,15 @@ router.post('/contact', upload.single('photo'), [
 })
 
 router.get('/litiges', (req, res) => {
-    res.render('litiges', {
-        data: {},
-        errors: {},
-        csrfToken: req.csrfToken()
-    })
+    const litigeService = new LitigeService();
+    
+    litigeService.find({},function(data){
+        return res.render('litiges', {
+            data: data,
+            errors: {},
+            csrfToken: req.csrfToken()
+        })
+    });
 })
 
 router.post('/litiges', upload.array(), [
@@ -112,7 +116,7 @@ router.get('/litige', (req, res) => {
     })
 })
 
-router.post('/litige', upload.single('pdf'), [
+router.post('/litige', upload.any(), [
     check('message')
         .isLength({min: 1, max: 1000})
         .withMessage('Message is required')
@@ -150,11 +154,14 @@ router.post('/litige', upload.single('pdf'), [
     const data = matchedData(req)
     console.log('Sanitized:', data)
 
-    var pathFile = undefined;
+    var pathFiles = [];
+    
+    if (req.files) {
+        console.log("Fichiers: ",req.files)
 
-    if (req.file) {
-        pathFile = urlUpload+'/'+req.file.filename;
-        console.log('Upload: ',pathFile);
+        req.files.forEach(function(el) {
+            pathFiles.push(el.filename);
+        });
     }
     const litigeService = new LitigeService();
     const litige = {
@@ -165,7 +172,7 @@ router.post('/litige', upload.single('pdf'), [
         objet: data.objet,
         localite: data.localite,
         telephone: data.telephone,
-        file: pathFile
+        files: pathFiles
     };
 
     litigeService.insert(litige);
