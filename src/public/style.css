@@ -5,11 +5,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   min-height: 100%;
   margin: 0;
   background: #fff;
   font-family: -apple-system, 'Segoe UI', sans-serif;
+
 }
 * {
   box-sizing: border-box;
@@ -119,4 +119,28 @@ tr:nth-child(even){background-color: white}
 th {
   background-color: #f8f8f8;
   color: white;
+}
+
+ul li {
+  display: inline;
+  list-style-type: none;
+  margin-right: 34px;
+}
+
+ul {
+  font-family: "Trebutchet MS", Helvetica, Tahoma, sans-serif;
+  font-size: 24px;
+  padding-left: 10px;
+}
+ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #24b47e;
+}
+
+ul li a:hover {
+background-color: #24b47e;
+text-decoration: underline;
 }

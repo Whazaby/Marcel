@@ -1,5 +1,10 @@
 <!-- views/litiges.ejs -->
-<a href="/litige/">Déclarer un litige</a>
+<ul>
+  <li><a href="/litige/">Déclarer un litige</a></li>
+</ul>
+<% if (messages.success) { %>
+  <div class="flash flash-success"><%= messages.success %></div>
+<% } %>
 <div class="form-header">
   <% if (Object.keys(errors).length !== 0) { %>
     <h2 class="errors-heading">Oops, please correct the following:</h2>

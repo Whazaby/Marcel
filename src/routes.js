@@ -4,13 +4,20 @@ const {check, validationResult} = require('express-validator/check')
 
 const {matchedData} = require('express-validator/filter')
 const multer = require('multer')
+const mkdirp = require('mkdirp')
 
 const urlUpload = 'src/public/uploads';
 const upload = multer({storage: multer.diskStorage({
         destination: function (req, file, cb) {
+            console.log("destination function");
+            console.log(req);
+            console.log(file);
             cb(null, urlUpload)
         },
         filename: function (req, file, cb) {
+            console.log("filename function");
+            console.log(req);
+            console.log(file);
             cb(null, Date.now() + '-'+ file.originalname)
         }
     })})
