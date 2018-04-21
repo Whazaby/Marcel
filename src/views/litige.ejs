@@ -79,7 +79,7 @@
           <label for="fichiers">Fichier(s)</label>
           <% if(data.files.length){ %>
           <%    for(var i = 0;i < data.files.length;i++) { %>
-                  <a href="/uploads/<%=data.files[i]%>"><%=data.files[i].path%></a>
+                 <p> <a href="/uploads/<%=data.files[i].path%>"><%=data.files[i].path%></a></p>
             <% } %>
           <% } %>
       </div>
