@@ -23,6 +23,7 @@ Attendre que npm télécharge toutes les dépendances du projet.
 ## Pour démarrer le projet
 Ouvrir deux consoles.
 Dans la première console.
-Tapez la commande 'mongodb' pour démarrer la base de données. (Peut-être un mode administrateur)
+Tapez la commande 'mongod' pour démarrer la base de données. (Peut-être un mode administrateur)
 Dans la deuxième console, se placer dans le répertoire du projet.
 Taper 'npm start'
+Maintenant le site est accessible sur http://localhost:3000/litiges/ 
