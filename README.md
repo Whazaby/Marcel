@@ -13,12 +13,12 @@ https://nodejs.org/en/download/current/
 La base de données et node.js s'installe comme n'importent quelle application.
 ```
 ## Initialisation du projet
-- Télécharger le zip du projet https://github.com/Whazaby/Marcel/archive/master.zip .
+- Télécharger le zip du projet https://github.com/Whazaby/Marcel/archive/master.zip . (environ 39ko)
 - Dézipper le projet à l'endroit souhaité.
 - Ouvrir une console.
 - Se placer dans le répertoire du projet.
 - Taper la commande 'npm i'.
-- Attendre que npm télécharge toutes les dépendances du projet.
+- Attendre que npm télécharge toutes les dépendances du projet. (environ 24,1 mo)
 
 ## Pour démarrer le projet
 - Ouvrir deux consoles.
