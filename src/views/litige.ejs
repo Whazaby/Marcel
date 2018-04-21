@@ -72,14 +72,14 @@
       <div class="error"><%= errors.message.msg %></div>
     <% } %>
   </div>
-
+  <% data %>
   <!-- Fichier(s) -->
     <% if (data.files) { %>
       <div class="form-field">
           <label for="fichiers">Fichier(s)</label>
           <% if(data.files.length){ %>
           <%    for(var i = 0;i < data.files.length;i++) { %>
-                  <a href="/uploads/<%=data.files[i]%>"><%=data.files[i]%></a>
+                  <a href="/uploads/<%=data.files[i]%>"><%=data.files[i].path%></a>
             <% } %>
           <% } %>
       </div>
@@ -95,4 +95,36 @@
     <button class="btn" type="submit">Send</button>
   </div>
   <% } %>
+
+  <% if (data.commentaires) { %>
+<div class="form-field">
+    <label for="fichiers">Commentaire(s)</label>
+    <% if(data.commentaires.length){ %>
+    <%    for(var i = 0;i < data.commentaires.length;i++) { %>
+            <p><%=data.commentaires[i].commentaire%></p>
+      <% } %>
+    <% } %>
+</div>
+<% } %>
 </form>
+
+<!-- Formulaire commentaire -->
+
+<% if (data._id) { %>
+<form method="post" action="/commentaire?_csrf=<%= csrfToken %>" novalidate enctype="multipart/form-data">
+<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+<input type="hidden" name="idLitige" value="<%= data._id %>">
+
+<div class="form-actions">
+      <!-- Commentaire -->
+  <div class="form-field <%= errors.message ? 'form-field-invalid' : '' %>">
+  <label for="commentaire">Commentaire</label>
+  <textarea class="input" id="commentaire" name="commentaire" rows="4" autofocus></textarea>
+  <% if (errors.commentaire) { %>
+    <div class="error"><%= errors.commentaire.msg %></div>
+  <% } %>
+</div>
+    <button class="btn" type="submit">Ajouter commentaire</button>
+  </div>
+</form>
+<% } %>
