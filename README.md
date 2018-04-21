@@ -17,7 +17,7 @@ La base de données et node.js s'installe comme n'importent quelle application.
 - Dézipper le projet à l'endroit souhaité.
 - Ouvrir une console.
 - Se placer dans le répertoire du projet.
-- Taper la commande 'npm i'
+- Taper la commande 'npm i'.
 - Attendre que npm télécharge toutes les dépendances du projet.
 
 ## Pour démarrer le projet
@@ -25,5 +25,5 @@ La base de données et node.js s'installe comme n'importent quelle application.
 - Dans la première console.
 - Tapez la commande 'mongod' pour démarrer la base de données. (Peut-être un mode administrateur)
 - Dans la deuxième console, se placer dans le répertoire du projet.
-- Taper 'npm start'
-- Maintenant le site est accessible sur http://localhost:3000/litiges/ 
+- Taper 'npm start'.
+- Maintenant le site est accessible sur http://localhost:3000/litiges/ .
